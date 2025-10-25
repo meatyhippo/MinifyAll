@@ -26,7 +26,12 @@
 // tslint:disable-next-line: max-line-length
 export default function getNewFilePath(path: any, fileName: string, extensionWithOutDot: string, prefixUsed: string = '-min'): string {
     const filePath: string = path.dirname(fileName);
-    const newName: string = path.basename(fileName).replace(`.${extensionWithOutDot}`, `${prefixUsed}.${extensionWithOutDot}`);
+    let newName:string;
+    if (fileName.includes(`.${prefixUsed}.${extensionWithOutDot}`)) {
+        newName = path.basename(fileName);
+    } else {
+        newName = path.basename(fileName).replace(`.${extensionWithOutDot}`, `${prefixUsed}.${extensionWithOutDot}`);
+    }
     const path2NewFile: string = path.join(filePath, newName);
     return path2NewFile;
 }
